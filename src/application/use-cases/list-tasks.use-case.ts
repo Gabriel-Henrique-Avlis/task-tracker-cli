@@ -1,14 +1,16 @@
+import { TaskDto } from "../dto/task.dto";
 import { TaskRepository } from "../repository/task.repository";
 
 export class ListTaskUseCase {
-    constructor(
-        private readonly taskRepository: TaskRepository
-    ) { }
+    private taskRepository: TaskRepository = new TaskRepository();
 
-    public executeGetListTask() {
+    constructor() { }
+
+    public executeGetAllTasks(): Array<TaskDto> {
         try {
-            this.taskRepository.addTask();
-        } catch {
+            return this.taskRepository.getAllTasks();
+        } catch (err) {
+            console.log(err)
             throw new Error();
         }
     }

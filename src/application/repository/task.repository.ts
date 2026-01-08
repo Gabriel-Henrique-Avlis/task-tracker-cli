@@ -1,17 +1,15 @@
+import path = require("path");
 import { TaskDto } from "../dto/task.dto";
 import * as fs from 'fs';
 
 export class TaskRepository {
     constructor() { }
 
-    public getAllTasks(): Array<TaskDto> | boolean {
+    public getAllTasks(): Array<TaskDto> {
         try {
-            if (!this.checkIfFileExists()) {
-                return false;
-            } else {
-                this.checkIfFileExists();
-            }
+            return this.checkIfFileExists();
         } catch (error: any) {
+            console.log(error)
             throw new Error();
         }
     }
@@ -67,27 +65,36 @@ export class TaskRepository {
         }
     }
 
-    private checkIfFileExists(): Array<TaskDto> | boolean {
+    private checkIfFileExists(): Array<TaskDto> {
         try {
-            const data = JSON.parse(fs.readFileSync('/db/tasks.json', 'utf-8')) as Array<TaskDto>;
+            const data = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../db/tasks.json'), 'utf-8')) as Array<TaskDto>;
             console.log(data)
             if (data) {
                 return data;
             } else {
                 this.createFile(data);
-                return false;
+                return [];
             }
-        } catch {
+        } catch (err) {
+            this.createFile();
+            console.log(err);
+        }
+    }
+
+    private createFile(data?: Array<TaskDto>): void {
+        try {
+            fs.writeFileSync(path.join(__dirname, '../../../db/tasks.json'), "{}");
+        } catch (err) {
+            console.log(err)
             throw new Error();
         }
     }
 
-    private createFile(data: Array<TaskDto>): void {
+    private modifyFile(data?: Array<TaskDto>): void {
         try {
-            fs.writeFile('/db/tasks.json', JSON.stringify(data), () => {
-                console.log(data);
-            });
-        } catch {
+            fs.writeFileSync(path.join(__dirname, '../../../db/tasks.json'), "{}");
+        } catch (err) {
+            console.log(err)
             throw new Error();
         }
     }
