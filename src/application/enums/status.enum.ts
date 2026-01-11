@@ -1,4 +1,4 @@
-export enum Status {
+export enum StatusEnum {
     TODO,
     IN_PROGRESS,
     DONE
