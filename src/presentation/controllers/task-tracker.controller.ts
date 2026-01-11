@@ -1,8 +1,8 @@
-import { TaskDto } from "../application/dto/task.dto";
-import { AddTaskUseCase } from "../application/use-cases/add-task.use-case";
-import { DeleteTaskUseCase } from "../application/use-cases/delete-task.use-case";
-import { ListTaskUseCase } from "../application/use-cases/list-tasks.use-case";
-import { UpdateTaskUseCase } from "../application/use-cases/update-task.use-case";
+import { TaskDto } from "../../application/dto/task.dto";
+import { AddTaskUseCase } from "../../application/use-cases/add-task.use-case";
+import { DeleteTaskUseCase } from "../../application/use-cases/delete-task.use-case";
+import { ListTaskUseCase } from "../../application/use-cases/list-tasks.use-case";
+import { UpdateTaskUseCase } from "../../application/use-cases/update-task.use-case";
 
 export class TaskTrackerController {
     private listTasksUseCase: ListTaskUseCase = new ListTaskUseCase();
@@ -48,7 +48,7 @@ export class TaskTrackerController {
         }
     }
 
-    public postTask(task: TaskDto): void {
+    public postTask(task: string): void {
         try {
             return this.addTaskUseCase.executeAddTask(task);
         } catch (err) {

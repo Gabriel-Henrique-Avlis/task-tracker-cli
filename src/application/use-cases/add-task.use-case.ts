@@ -6,9 +6,11 @@ export class AddTaskUseCase {
 
     constructor() { }
 
-    public executeAddTask(task: TaskDto) {
+    public executeAddTask(task: string) {
         try {
-            this.taskRepository.addTask(task);
+            let newTask: TaskDto = new TaskDto();
+            newTask.setDescription(task);
+            this.taskRepository.addTask(newTask);
         } catch {
             throw new Error();
         }
