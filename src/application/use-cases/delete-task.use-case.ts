@@ -2,13 +2,13 @@ import { TaskDto } from "../dto/task.dto";
 import { TaskRepository } from "../repository/task.repository";
 
 export class DeleteTaskUseCase {
-    constructor(
-        private readonly taskRepository: TaskRepository
-    ) { }
+    private taskRepository: TaskRepository = new TaskRepository();
 
-    public executeDeleteTask(task: TaskDto) {
+    constructor() { }
+
+    public executeDeleteTask(id: string) {
         try {
-            this.taskRepository.deleteTask(task.getId());
+            this.taskRepository.deleteTask(id);
         } catch {
             throw new Error();
         }

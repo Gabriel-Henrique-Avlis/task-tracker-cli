@@ -2,9 +2,9 @@ import { TaskDto } from "../dto/task.dto";
 import { TaskRepository } from "../repository/task.repository";
 
 export class AddTaskUseCase {
-    constructor(
-        private readonly taskRepository: TaskRepository
-    ) { }
+    private taskRepository: TaskRepository = new TaskRepository();
+
+    constructor() { }
 
     public executeAddTask(task: TaskDto) {
         try {
