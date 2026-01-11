@@ -51,6 +51,7 @@ export class TaskRepository {
     public addTask(task: TaskDto): void {
         try {
             let tasks: Array<TaskDto> = this.checkIfFileExists();
+            task.setId(tasks.length + 1);
             tasks.push(task);
             this.modifyFile(tasks);
         } catch (error: any) {
@@ -85,9 +86,9 @@ export class TaskRepository {
 
     private checkIfFileExists(): Array<TaskDto> {
         try {
-            const data = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../db/tasks.json'), 'utf-8')) as Array<TaskDto>;
+            const data = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../db/tasks.json'), 'utf-8')) as any;
             console.log(data)
-            return data;
+            return data.data as Array<TaskDto>;
         } catch (err) {
             this.createFile();
             console.log(err);
@@ -105,7 +106,7 @@ export class TaskRepository {
 
     private modifyFile(data: Array<TaskDto>): void {
         try {
-            fs.writeFileSync(path.join(__dirname, '../../../db/tasks.json'), JSON.stringify(data));
+            fs.writeFileSync(path.join(__dirname, '../../../db/tasks.json'), JSON.stringify({ data: data }));
         } catch (err) {
             console.log(err)
             throw new Error();

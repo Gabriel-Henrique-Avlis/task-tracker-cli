@@ -1,4 +1,5 @@
 import { TaskDto } from "../../application/dto/task.dto";
+import { StatusEnum } from "../../application/enums/status.enum";
 import { AddTaskUseCase } from "../../application/use-cases/add-task.use-case";
 import { DeleteTaskUseCase } from "../../application/use-cases/delete-task.use-case";
 import { ListTaskUseCase } from "../../application/use-cases/list-tasks.use-case";
@@ -57,9 +58,36 @@ export class TaskTrackerController {
         }
     }
 
-    public putTask(task: string, id: number): void {
+    public putTask(id: number, task: string): void {
         try {
             return this.updateTaskUseCase.executeUpdateTask(task, id);
+        } catch (err) {
+            console.log(err)
+            throw new Error();
+        }
+    }
+
+    public putTaskStatusToDo(id: number): void {
+        try {
+            return this.updateTaskUseCase.executeUpdateTaskStatus(id, StatusEnum.TODO);
+        } catch (err) {
+            console.log(err)
+            throw new Error();
+        }
+    }
+
+    public putTaskStatusInProgress(id: number): void {
+        try {
+            return this.updateTaskUseCase.executeUpdateTaskStatus(id, StatusEnum.IN_PROGRESS);
+        } catch (err) {
+            console.log(err)
+            throw new Error();
+        }
+    }
+
+    public putTaskStatusDone(id: number): void {
+        try {
+            return this.updateTaskUseCase.executeUpdateTaskStatus(id, StatusEnum.DONE);
         } catch (err) {
             console.log(err)
             throw new Error();
