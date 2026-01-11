@@ -14,4 +14,31 @@ export class ListTaskUseCase {
             throw new Error();
         }
     }
+
+    public executeGetToDoTasks(): Array<TaskDto> {
+        try {
+            return this.taskRepository.getAllToDoTasks();
+        } catch (err) {
+            console.log(err)
+            throw new Error();
+        }
+    }
+
+    public executeGetInProgressTasks(): Array<TaskDto> {
+        try {
+            return this.taskRepository.getAllInProgressTasks();
+        } catch (err) {
+            console.log(err)
+            throw new Error();
+        }
+    }
+
+    public executeGetDoneTasks(): Array<TaskDto> {
+        try {
+            return this.taskRepository.getAllDoneTasks();
+        } catch (err) {
+            console.log(err)
+            throw new Error();
+        }
+    }
 }

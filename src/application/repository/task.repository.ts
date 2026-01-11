@@ -37,6 +37,17 @@ export class TaskRepository {
         }
     }
 
+    public getAllDoneTasks(): Array<TaskDto> {
+        try {
+            let tasks: Array<TaskDto> = this.checkIfFileExists();
+            let tasksDone: Array<TaskDto> = [];
+            tasksDone = tasks.filter(t => t.getStatus() == StatusEnum.DONE)
+            return tasksDone;
+        } catch (error: any) {
+            throw new Error();
+        }
+    }
+
     public addTask(task: TaskDto): void {
         try {
             let tasks: Array<TaskDto> = this.checkIfFileExists();

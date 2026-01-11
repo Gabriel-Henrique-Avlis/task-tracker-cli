@@ -1,3 +1,4 @@
+import { TaskDto } from "../dto/task.dto";
 import { TaskRepository } from "../repository/task.repository";
 
 export class AddTaskUseCase {
@@ -5,9 +6,9 @@ export class AddTaskUseCase {
         private readonly taskRepository: TaskRepository
     ) { }
 
-    public executeAddTask() {
+    public executeAddTask(task: TaskDto) {
         try {
-            this.taskRepository.addTask();
+            this.taskRepository.addTask(task);
         } catch {
             throw new Error();
         }
