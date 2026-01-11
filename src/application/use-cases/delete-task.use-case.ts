@@ -6,7 +6,7 @@ export class DeleteTaskUseCase {
 
     constructor() { }
 
-    public executeDeleteTask(id: string) {
+    public executeDeleteTask(id: number) {
         try {
             this.taskRepository.deleteTask(id);
         } catch {

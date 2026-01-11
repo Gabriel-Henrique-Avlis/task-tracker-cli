@@ -57,16 +57,16 @@ export class TaskTrackerController {
         }
     }
 
-    public putTask(task: TaskDto): void {
+    public putTask(task: string, id: number): void {
         try {
-            return this.updateTaskUseCase.executeUpdateTask(task);
+            return this.updateTaskUseCase.executeUpdateTask(task, id);
         } catch (err) {
             console.log(err)
             throw new Error();
         }
     }
 
-    public deleteTask(id: string): void {
+    public deleteTask(id: number): void {
         try {
             return this.deleteTaskUseCase.executeDeleteTask(id);
         } catch (err) {

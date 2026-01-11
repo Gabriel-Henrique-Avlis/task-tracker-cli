@@ -1,20 +1,23 @@
 import { StatusEnum } from "../enums/status.enum";
 import { randomUUID } from "crypto";
 export class TaskDto {
-    private id: string = "";
+    private id: number;
     private description: string = "";
     private status: StatusEnum = 1;
     private createdAt: string = "";
     private updatedAt: string = "";
 
     constructor() {
-        this.id = randomUUID();
         this.createdAt = new Date().toISOString();
         this.status = StatusEnum.TODO;
     }
 
-    public getId(): string {
+    public getId(): number {
         return this.id;
+    }
+
+    public setId(id: number): void {
+        this.id = id;
     }
 
     public getDescription(): string {

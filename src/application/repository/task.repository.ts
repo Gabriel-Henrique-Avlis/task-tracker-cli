@@ -58,7 +58,7 @@ export class TaskRepository {
         }
     }
 
-    public deleteTask(id: string): void {
+    public deleteTask(id: number): void {
         try {
             let tasks: Array<TaskDto> = this.checkIfFileExists();
             tasks = tasks.filter(t => t.getId() !== id);
@@ -68,11 +68,15 @@ export class TaskRepository {
         }
     }
 
-    public updateTask(task: TaskDto): void {
+    public updateTask(task: string, id: number, status?: StatusEnum): void {
         try {
             let tasks: Array<TaskDto> = this.checkIfFileExists();
-            let taskIndex = tasks.findIndex(t => t.getId() == task.getId());
-            tasks[taskIndex] = task;
+            let taskIndex = tasks.findIndex(t => t.getId() == id);
+            tasks[taskIndex].setDescription(task);
+            tasks[taskIndex].setUpdatedAt(new Date().toISOString());
+            if (status) {
+                tasks[taskIndex].setStatus(status);
+            }
             this.modifyFile(tasks);
         } catch (error: any) {
             throw new Error();

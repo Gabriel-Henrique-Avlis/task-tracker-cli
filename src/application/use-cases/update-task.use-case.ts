@@ -6,9 +6,9 @@ export class UpdateTaskUseCase {
 
     constructor() { }
 
-    public executeUpdateTask(task: TaskDto) {
+    public executeUpdateTask(task: string, id: number) {
         try {
-            this.taskRepository.updateTask(task);
+            this.taskRepository.updateTask(task, id);
         } catch {
             throw new Error();
         }
