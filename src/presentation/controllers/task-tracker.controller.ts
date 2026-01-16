@@ -60,7 +60,7 @@ export class TaskTrackerController {
 
     public putTask(id: number, task: string): void {
         try {
-            return this.updateTaskUseCase.executeUpdateTask(task, id);
+            return this.updateTaskUseCase.executeUpdateTask(id, task);
         } catch (err) {
             console.log(err)
             throw new Error();

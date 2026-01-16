@@ -7,9 +7,9 @@ export class UpdateTaskUseCase {
 
     constructor() { }
 
-    public executeUpdateTask(task: string, id: number) {
+    public executeUpdateTask(id: number, task: string) {
         try {
-            this.taskRepository.updateTask(task, id);
+            this.taskRepository.updateTask(id, task);
         } catch {
             throw new Error();
         }
@@ -17,7 +17,7 @@ export class UpdateTaskUseCase {
 
     public executeUpdateTaskStatus(id: number, status: StatusEnum) {
         try {
-            this.taskRepository.updateTask("", id, status);
+            this.taskRepository.updateTask(id, null, status);
         } catch {
             throw new Error();
         }

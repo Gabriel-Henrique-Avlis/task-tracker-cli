@@ -1,9 +1,9 @@
 import { StatusEnum } from "../enums/status.enum";
-import { randomUUID } from "crypto";
+
 export class TaskDto {
     private id: number;
     private description: string = "";
-    private status: StatusEnum = 1;
+    private status: StatusEnum;
     private createdAt: string = "";
     private updatedAt: string = "";
 

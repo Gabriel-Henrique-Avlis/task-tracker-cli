@@ -16,16 +16,16 @@ export function main() {
         case "list":
             {
                 if (args[1] == "todo") {
-                    taskTrackerController.getToDoTasks();
+                    process.stdout.write(JSON.stringify(taskTrackerController.getToDoTasks()));
                     break;
                 } else if (args[1] == "in-progress") {
-                    taskTrackerController.getInProgressTasks();
+                    process.stdout.write(JSON.stringify(taskTrackerController.getInProgressTasks()));
                     break;
                 } else if (args[1] == "done") {
-                    taskTrackerController.getDoneTasks();
+                    process.stdout.write(JSON.stringify(taskTrackerController.getDoneTasks()));
                     break;
                 }
-                taskTrackerController.getAllTasks();
+                process.stdout.write(JSON.stringify(taskTrackerController.getAllTasks()));
                 break;
             }
         case "mark-done":

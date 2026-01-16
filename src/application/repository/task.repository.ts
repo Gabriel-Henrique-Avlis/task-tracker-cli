@@ -8,7 +8,9 @@ export class TaskRepository {
 
     public getAllTasks(): Array<TaskDto> {
         try {
-            return this.checkIfFileExists();
+            let tasks: Array<TaskDto> = this.checkIfFileExists();
+            console.log(tasks, 12)
+            return tasks;
         } catch (error: any) {
             console.log(error)
             throw new Error();
@@ -62,36 +64,50 @@ export class TaskRepository {
     public deleteTask(id: number): void {
         try {
             let tasks: Array<TaskDto> = this.checkIfFileExists();
-            tasks = tasks.filter(t => t.getId() !== id);
+            tasks = tasks.filter(t => t.getId() != id);
+            console.log(tasks, 70, 'deleting');
             this.modifyFile(tasks);
         } catch (error: any) {
             throw new Error();
         }
     }
 
-    public updateTask(task: string, id: number, status?: StatusEnum): void {
+    public updateTask(id: number, task?: string, status?: StatusEnum): void {
         try {
             let tasks: Array<TaskDto> = this.checkIfFileExists();
+            console.log(tasks[0].getId(), 75);
             let taskIndex = tasks.findIndex(t => t.getId() == id);
-            tasks[taskIndex].setDescription(task);
+            console.log(status, 78, 'status');
+            if (task) {
+                tasks[taskIndex].setDescription(task);
+            }
             tasks[taskIndex].setUpdatedAt(new Date().toISOString());
             if (status) {
                 tasks[taskIndex].setStatus(status);
             }
             this.modifyFile(tasks);
         } catch (error: any) {
+            console.log(error);
             throw new Error();
         }
     }
 
     private checkIfFileExists(): Array<TaskDto> {
         try {
-            const data = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../db/tasks.json'), 'utf-8')) as any;
-            console.log(data)
-            return data.data as Array<TaskDto>;
+            const raw = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../db/tasks.json'), 'utf-8')) as any;
+            const arr = Array.isArray(raw?.data) ? raw.data : [];
+            const tasks: Array<TaskDto> = arr.map((o: any) => {
+                const t = new TaskDto();
+                if (o.id !== undefined) t.setId(o.id);
+                if (o.description !== undefined) t.setDescription(o.description);
+                if (o.status !== undefined) t.setStatus(o.status as StatusEnum);
+                if (o.updatedAt !== undefined) t.setUpdatedAt(o.updatedAt);
+                return t;
+            });
+            return tasks;
         } catch (err) {
             this.createFile();
-            console.log(err);
+            console.log('arquivo criado');
         }
     }
 
@@ -106,6 +122,7 @@ export class TaskRepository {
 
     private modifyFile(data: Array<TaskDto>): void {
         try {
+            console.log(data, 108);
             fs.writeFileSync(path.join(__dirname, '../../../db/tasks.json'), JSON.stringify({ data: data }));
         } catch (err) {
             console.log(err)
