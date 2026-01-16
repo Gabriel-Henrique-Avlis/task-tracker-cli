@@ -29,7 +29,7 @@ export function main() {
                 break;
             }
         case "mark-done":
-            taskTrackerController.putTaskStatusToDo(args[1] as unknown as number);
+            taskTrackerController.putTaskStatusDone(args[1] as unknown as number);
             break;
         case "mark-in-progress":
             taskTrackerController.putTaskStatusInProgress(args[1] as unknown as number);

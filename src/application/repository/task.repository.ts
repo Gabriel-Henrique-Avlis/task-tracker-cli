@@ -9,7 +9,6 @@ export class TaskRepository {
     public getAllTasks(): Array<TaskDto> {
         try {
             let tasks: Array<TaskDto> = this.checkIfFileExists();
-            console.log(tasks, 12)
             return tasks;
         } catch (error: any) {
             console.log(error)
@@ -65,7 +64,6 @@ export class TaskRepository {
         try {
             let tasks: Array<TaskDto> = this.checkIfFileExists();
             tasks = tasks.filter(t => t.getId() != id);
-            console.log(tasks, 70, 'deleting');
             this.modifyFile(tasks);
         } catch (error: any) {
             throw new Error();
@@ -75,9 +73,7 @@ export class TaskRepository {
     public updateTask(id: number, task?: string, status?: StatusEnum): void {
         try {
             let tasks: Array<TaskDto> = this.checkIfFileExists();
-            console.log(tasks[0].getId(), 75);
             let taskIndex = tasks.findIndex(t => t.getId() == id);
-            console.log(status, 78, 'status');
             if (task) {
                 tasks[taskIndex].setDescription(task);
             }
@@ -122,7 +118,6 @@ export class TaskRepository {
 
     private modifyFile(data: Array<TaskDto>): void {
         try {
-            console.log(data, 108);
             fs.writeFileSync(path.join(__dirname, '../../../db/tasks.json'), JSON.stringify({ data: data }));
         } catch (err) {
             console.log(err)
