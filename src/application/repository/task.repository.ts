@@ -104,6 +104,7 @@ export class TaskRepository {
         } catch (err) {
             this.createFile();
             console.log('arquivo criado');
+            return [];
         }
     }
 
