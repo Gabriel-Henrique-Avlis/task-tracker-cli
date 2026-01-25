@@ -6,15 +6,15 @@ export function main() {
     switch (args[0]) {
         case "add":
             taskTrackerController.postTask(args[1] as string);
-            process.stdout.write("Tarefa adicionada com sucesso.\n");
+            process.stdout.write("Task added successfully.\n");
             break;
         case "update":
             taskTrackerController.putTask(args[1] as unknown as number, args[2] as string);
-            process.stdout.write("Tarefa atualizada com sucesso.\n");
+            process.stdout.write("Task updated successfully.\n");
             break;
         case "delete":
             taskTrackerController.deleteTask(args[1] as unknown as number);
-            process.stdout.write("Tarefa deletada com sucesso.\n");
+            process.stdout.write("Task deleted successfully.\n");
             break;
         case "list":
             {
@@ -33,18 +33,18 @@ export function main() {
             }
         case "mark-done":
             taskTrackerController.putTaskStatusDone(args[1] as unknown as number);
-            process.stdout.write("Tarefa marcada como feita com sucesso.\n");
+            process.stdout.write("Task marked as done successfully.\n");
             break;
         case "mark-in-progress":
             taskTrackerController.putTaskStatusInProgress(args[1] as unknown as number);
-            process.stdout.write("Tarefa marcada como em progresso com sucesso.\n");
+            process.stdout.write("Task marked as in progress successfully.\n");
             break;
         case "mark-todo":
             taskTrackerController.putTaskStatusToDo(args[1] as unknown as number);
-            process.stdout.write("Tarefa marcada como a fazer com sucesso.\n");
+            process.stdout.write("Task marked as to-do successfully.\n");
             break;
         default:
-            console.log("Comando não reconhecido. Use 'add', 'update', 'delete' ou 'list'.");
+            console.log("Unrecognized command. Use 'add', 'update', 'delete' or 'list'.");
     }
 }
 
