@@ -60,4 +60,3 @@ The app stores tasks in `db/tasks.json` as an object with a `data` array. The re
 MIT
 
 https://roadmap.sh/projects/task-tracker
-
