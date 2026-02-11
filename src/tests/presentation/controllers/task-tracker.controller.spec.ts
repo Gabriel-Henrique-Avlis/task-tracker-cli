@@ -96,4 +96,39 @@ describe("TaskTrackerController", () => {
         updateMock.executeUpdateTaskStatus.mockImplementation(() => { throw new Error("update-fail"); });
         expect(() => controller.putTaskStatusInProgress(1)).toThrow(Error);
     });
+
+    test("getToDoTasks rethrows on use case error", () => {
+        listMock.executeGetToDoTasks.mockImplementation(() => { throw new Error("todo-fail"); });
+        expect(() => controller.getToDoTasks()).toThrow(Error);
+    });
+
+    test("getInProgressTasks rethrows on use case error", () => {
+        listMock.executeGetInProgressTasks.mockImplementation(() => { throw new Error("inprogress-fail"); });
+        expect(() => controller.getInProgressTasks()).toThrow(Error);
+    });
+
+    test("getDoneTasks rethrows on use case error", () => {
+        listMock.executeGetDoneTasks.mockImplementation(() => { throw new Error("done-fail"); });
+        expect(() => controller.getDoneTasks()).toThrow(Error);
+    });
+
+    test("putTask rethrows on use case error", () => {
+        updateMock.executeUpdateTask.mockImplementation(() => { throw new Error("update-task-fail"); });
+        expect(() => controller.putTask(1, "task")).toThrow(Error);
+    });
+
+    test("putTaskStatusToDo rethrows on use case error", () => {
+        updateMock.executeUpdateTaskStatus.mockImplementation(() => { throw new Error("status-todo-fail"); });
+        expect(() => controller.putTaskStatusToDo(1)).toThrow(Error);
+    });
+
+    test("putTaskStatusDone rethrows on use case error", () => {
+        updateMock.executeUpdateTaskStatus.mockImplementation(() => { throw new Error("status-done-fail"); });
+        expect(() => controller.putTaskStatusDone(1)).toThrow(Error);
+    });
+
+    test("deleteTask rethrows on use case error", () => {
+        deleteMock.executeDeleteTask.mockImplementation(() => { throw new Error("delete-fail"); });
+        expect(() => controller.deleteTask(1)).toThrow(Error);
+    });
 });
